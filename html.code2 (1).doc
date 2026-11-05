@@ -1,0 +1,1323 @@
+<html xmlns:o='urn:schemas-microsoft-com:office:office'
+    xmlns:w='urn:schemas-microsoft-com:office:word'
+    xmlns='http://www.w3.org/TR/REC-html40'>
+    <head><meta charset='utf-8'><title>html.code2</title></head>
+    <body><h1>html.code2</h1><p style="white-space:pre-wrap;font-family:Calibri,sans-serif;font-size:11pt;line-height:1.6">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; class=&quot;dark&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;/&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;/&gt;
+&lt;meta name=&quot;description&quot; content=&quot;ToolVerse — Premium AI-powered browser tools. No signup. No backend. Just instant, beautiful tools.&quot;/&gt;
+&lt;meta name=&quot;theme-color&quot; content=&quot;#0E45EB&quot;/&gt;
+&lt;title&gt;ToolVerse — Premium Web Tools Platform&lt;/title&gt;
+
+&lt;!-- Tailwind CSS --&gt;
+&lt;script src=&quot;https://cdn.tailwindcss.com&quot;&gt;&lt;/script&gt;
+&lt;!-- Font Awesome --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css&quot;/&gt;
+&lt;!-- Google Fonts --&gt;
+&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap&quot; rel=&quot;stylesheet&quot;/&gt;
+
+&lt;script&gt;
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          brand: '#0E45EB',
+          'brand-light': '#3D6FF0',
+          'brand-dark': '#0930C2',
+        },
+        fontFamily: {
+          display: ['Syne', 'sans-serif'],
+          body: ['DM Sans', 'sans-serif'],
+        }
+      }
+    }
+  }
+&lt;/script&gt;
+
+&lt;style&gt;
+  :root {
+    --brand: #0E45EB;
+    --brand-glow: rgba(14, 69, 235, 0.45);
+    --brand-soft: rgba(14, 69, 235, 0.12);
+    --glass-bg: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.08);
+    --bg-dark: #060B1A;
+    --bg-card: #0C1128;
+    --text-primary: #F0F4FF;
+    --text-secondary: #8896B3;
+  }
+  .light {
+    --glass-bg: rgba(14,69,235,0.04);
+    --glass-border: rgba(14,69,235,0.12);
+    --bg-dark: #F0F4FF;
+    --bg-card: #FFFFFF;
+    --text-primary: #0C1128;
+    --text-secondary: #4A5568;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+
+  /* ─── Scrollbar ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--brand); border-radius: 3px; }
+
+  /* ─── Animated background ─── */
+  .hero-bg {
+    background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(14,69,235,0.35) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 30% at 80% 20%, rgba(61,111,240,0.2) 0%, transparent 60%),
+                var(--bg-dark);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(14,69,235,0.08) 1px, transparent 0);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: float 8s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-30px) scale(1.05); }
+  }
+
+  /* ─── Glass card ─── */
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* ─── Tool card ─── */
+  .tool-card {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .tool-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mx,50%) var(--my,50%), var(--brand-soft) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+  .tool-card:hover::before { opacity: 1; }
+  .tool-card:hover {
+    border-color: rgba(14,69,235,0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(14,69,235,0.18), 0 0 0 1px rgba(14,69,235,0.2);
+  }
+  .tool-icon {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, var(--brand), #3D6FF0);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; color: white;
+    box-shadow: 0 8px 20px var(--brand-glow);
+    transition: transform 0.3s;
+  }
+  .tool-card:hover .tool-icon { transform: scale(1.08) rotate(-3deg); }
+
+  /* ─── Navbar ─── */
+  .navbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(6,11,26,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .light .navbar { background: rgba(240,244,255,0.9); }
+
+  /* ─── Btn primary ─── */
+  .btn-primary {
+    background: linear-gradient(135deg, var(--brand), #3D6FF0);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 4px 15px var(--brand-glow);
+    font-size: 14px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px var(--brand-glow); filter: brightness(1.1); }
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-size: 14px;
+  }
+  .btn-outline:hover { border-color: var(--brand); color: var(--brand); background: var(--brand-soft); }
+
+  /* ─── Modal ─── */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(6,11,26,0.85);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
+  .modal-box {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    width: 100%; max-width: 680px;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: scale(0.95) translateY(20px);
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
+    padding: 32px;
+    position: relative;
+  }
+  .modal-overlay.active .modal-box { transform: scale(1) translateY(0); }
+
+  /* ─── Category pill ─── */
+  .cat-pill {
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .cat-pill:hover, .cat-pill.active {
+    background: var(--brand);
+    border-color: var(--brand);
+    color: white;
+    box-shadow: 0 4px 12px var(--brand-glow);
+  }
+
+  /* ─── Input ─── */
+  .tool-input {
+    width: 100%;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .tool-input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); }
+  .tool-input::placeholder { color: var(--text-secondary); }
+
+  textarea.tool-input { resize: vertical; min-height: 120px; }
+
+  /* ─── Drop zone ─── */
+  .dropzone {
+    border: 2px dashed var(--glass-border);
+    border-radius: 12px;
+    padding: 40px 20px;
+    text-align: center;
+    transition: all 0.25s;
+    cursor: pointer;
+  }
+  .dropzone:hover, .dropzone.dragover {
+    border-color: var(--brand);
+    background: var(--brand-soft);
+  }
+
+  /* ─── Toast ─── */
+  #toast-container {
+    position: fixed; bottom: 24px; right: 24px; z-index: 500;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .toast {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-left: 3px solid var(--brand);
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    animation: slideIn 0.3s ease, fadeOut 0.4s ease 2.6s forwards;
+    max-width: 280px;
+  }
+  .toast.success { border-left-color: #10B981; }
+  .toast.error { border-left-color: #EF4444; }
+  @keyframes slideIn { from { opacity:0; transform: translateX(20px); } to { opacity:1; transform: translateX(0); } }
+  @keyframes fadeOut { from { opacity:1; } to { opacity:0; pointer-events:none; } }
+
+  /* ─── Strength bar ─── */
+  .strength-bar { height: 4px; border-radius: 2px; transition: width 0.4s, background 0.4s; }
+
+  /* ─── Spinner ─── */
+  .spinner {
+    width: 32px; height: 32px;
+    border: 3px solid var(--glass-border);
+    border-top-color: var(--brand);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ─── Before/After ─── */
+  .preview-img { border-radius: 10px; max-width: 100%; max-height: 200px; object-fit: contain; }
+
+  /* ─── Search ─── */
+  .search-bar {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 12px 18px 12px 44px;
+    width: 100%;
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.25s;
+  }
+  .search-bar:focus { border-color: var(--brand); box-shadow: 0 0 0 4px var(--brand-soft); }
+  .search-bar::placeholder { color: var(--text-secondary); }
+
+  /* ─── Stats ─── */
+  .stat-badge {
+    background: var(--brand-soft);
+    border: 1px solid rgba(14,69,235,0.2);
+    border-radius: 8px;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: #7BA4FF;
+    font-weight: 600;
+  }
+
+  /* ─── Scroll reveal ─── */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── Range slider ─── */
+  input[type=range] { accent-color: var(--brand); }
+
+  /* ─── QR &amp; thumbnail result ─── */
+  #qr-result canvas, #qr-result img { border-radius: 10px; border: 1px solid var(--glass-border); }
+
+  .thumb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+  .thumb-item img { width: 100%; border-radius: 8px; }
+  .thumb-item { position: relative; }
+  .thumb-item .dl-btn {
+    position: absolute; bottom: 6px; right: 6px;
+    background: var(--brand); color: white; border: none;
+    border-radius: 6px; padding: 4px 8px; font-size: 11px; cursor: pointer;
+    font-weight: 600;
+  }
+
+  /* ─── Light mode overrides ─── */
+  .light body { background: #F0F4FF; color: #0C1128; }
+  .light .tool-card { background: white; }
+  .light .modal-box { background: white; }
+
+  @media (max-width: 640px) {
+    .modal-box { padding: 20px; border-radius: 14px; }
+  }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body class=&quot;dark&quot;&gt;
+
+&lt;!-- ══════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════ --&gt;
+&lt;nav class=&quot;navbar px-4 md:px-8&quot; style=&quot;height:64px;&quot;&gt;
+  &lt;div class=&quot;max-w-7xl mx-auto h-full flex items-center justify-between&quot;&gt;
+    &lt;!-- Logo --&gt;
+    &lt;a href=&quot;#&quot; class=&quot;flex items-center gap-2 font-display font-bold text-xl&quot; style=&quot;color:var(--text-primary)&quot;&gt;
+      &lt;span style=&quot;background:linear-gradient(135deg,#0E45EB,#3D6FF0);border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(14,69,235,0.4);&quot;&gt;
+        &lt;i class=&quot;fa-solid fa-bolt text-white text-sm&quot;&gt;&lt;/i&gt;
+      &lt;/span&gt;
+      Tool&lt;span style=&quot;color:var(--brand)&quot;&gt;Verse&lt;/span&gt;
+    &lt;/a&gt;
+
+    &lt;!-- Desktop links --&gt;
+    &lt;div class=&quot;hidden md:flex items-center gap-6 text-sm font-medium&quot; style=&quot;color:var(--text-secondary)&quot;&gt;
+      &lt;a href=&quot;#tools&quot; class=&quot;hover:text-brand transition-colors&quot;&gt;Tools&lt;/a&gt;
+      &lt;a href=&quot;#features&quot; class=&quot;hover:text-brand transition-colors&quot;&gt;Features&lt;/a&gt;
+      &lt;a href=&quot;#footer&quot; class=&quot;hover:text-brand transition-colors&quot;&gt;About&lt;/a&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Right controls --&gt;
+    &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+      &lt;button onclick=&quot;toggleSearch()&quot; class=&quot;btn-outline px-3 py-2 text-sm&quot; style=&quot;border-radius:8px&quot; title=&quot;Search&quot;&gt;
+        &lt;i class=&quot;fa-solid fa-magnifying-glass&quot;&gt;&lt;/i&gt;
+      &lt;/button&gt;
+      &lt;button onclick=&quot;toggleTheme()&quot; id=&quot;theme-toggle&quot; class=&quot;btn-outline px-3 py-2 text-sm&quot; style=&quot;border-radius:8px&quot; title=&quot;Toggle theme&quot;&gt;
+        &lt;i class=&quot;fa-solid fa-moon&quot;&gt;&lt;/i&gt;
+      &lt;/button&gt;
+      &lt;button onclick=&quot;scrollToTools()&quot; class=&quot;btn-primary hidden md:inline-flex items-center gap-2&quot;&gt;
+        &lt;i class=&quot;fa-solid fa-grip&quot;&gt;&lt;/i&gt; All Tools
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;
+
+&lt;!-- Search bar overlay --&gt;
+&lt;div id=&quot;search-overlay&quot; class=&quot;hidden&quot; style=&quot;position:fixed;top:64px;left:0;right:0;z-index:99;padding:12px 16px;background:rgba(6,11,26,0.95);border-bottom:1px solid var(--glass-border);backdrop-filter:blur(20px)&quot;&gt;
+  &lt;div class=&quot;max-w-2xl mx-auto relative&quot;&gt;
+    &lt;i class=&quot;fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2&quot; style=&quot;color:var(--text-secondary)&quot;&gt;&lt;/i&gt;
+    &lt;input id=&quot;nav-search&quot; type=&quot;text&quot; placeholder=&quot;Search tools...&quot; class=&quot;search-bar&quot; oninput=&quot;filterTools(this.value)&quot;/&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ --&gt;
+&lt;section class=&quot;hero-bg pt-24 pb-20 px-4 relative&quot; style=&quot;min-height:520px;display:flex;flex-direction:column;align-items:center;justify-content:center;&quot;&gt;
+  &lt;!-- Orbs --&gt;
+  &lt;div class=&quot;hero-orb&quot; style=&quot;width:400px;height:400px;background:rgba(14,69,235,0.25);top:-100px;left:-80px;animation-delay:0s;&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;hero-orb&quot; style=&quot;width:250px;height:250px;background:rgba(61,111,240,0.18);top:50px;right:-40px;animation-delay:3s;&quot;&gt;&lt;/div&gt;
+
+  &lt;div class=&quot;relative z-10 text-center max-w-4xl mx-auto&quot;&gt;
+    &lt;div class=&quot;inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-6 text-sm font-medium&quot; style=&quot;color:#7BA4FF&quot;&gt;
+      &lt;i class=&quot;fa-solid fa-circle text-xs&quot; style=&quot;color:#10B981&quot;&gt;&lt;/i&gt;
+      9 free tools · No signup · 100% browser-based
+    &lt;/div&gt;
+
+    &lt;h1 class=&quot;font-display font-extrabold mb-4 leading-tight&quot; style=&quot;font-size:clamp(2.2rem,6vw,4rem);color:var(--text-primary)&quot;&gt;
+      Every tool you need,&lt;br/&gt;
+      &lt;span style=&quot;background:linear-gradient(135deg,#0E45EB,#7BA4FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;&quot;&gt;right in your browser.&lt;/span&gt;
+    &lt;/h1&gt;
+
+    &lt;p class=&quot;text-lg mb-8 max-w-2xl mx-auto&quot; style=&quot;color:var(--text-secondary)&quot;&gt;
+      ToolVerse brings 9 powerful utilities — image processing, PDF tools, OCR, QR codes &amp;amp; more — with zero installs, zero backend, zero cost.
+    &lt;/p&gt;
+
+    &lt;div class=&quot;flex flex-wrap gap-3 justify-center&quot;&gt;
+      &lt;button onclick=&quot;scrollToTools()&quot; class=&quot;btn-primary flex items-center gap-2 px-6 py-3 text-base&quot;&gt;
+        &lt;i class=&quot;fa-solid fa-rocket&quot;&gt;&lt;/i&gt; Explore All Tools
+      &lt;/button&gt;
+      &lt;button onclick=&quot;scrollToTools()&quot; class=&quot;btn-outline flex items-center gap-2 px-6 py-3 text-base&quot;&gt;
+        &lt;i class=&quot;fa-solid fa-play&quot;&gt;&lt;/i&gt; Quick Demo
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Stats row --&gt;
+    &lt;div class=&quot;flex flex-wrap gap-4 justify-center mt-10&quot;&gt;
+      &lt;div class=&quot;stat-badge&quot;&gt;&lt;i class=&quot;fa-solid fa-tools mr-1&quot;&gt;&lt;/i&gt; 9 Tools&lt;/div&gt;
+      &lt;div class=&quot;stat-badge&quot;&gt;&lt;i class=&quot;fa-solid fa-lock mr-1&quot;&gt;&lt;/i&gt; 100% Private&lt;/div&gt;
+      &lt;div class=&quot;stat-badge&quot;&gt;&lt;i class=&quot;fa-solid fa-bolt mr-1&quot;&gt;&lt;/i&gt; Instant Results&lt;/div&gt;
+      &lt;div class=&quot;stat-badge&quot;&gt;&lt;i class=&quot;fa-solid fa-mobile-screen mr-1&quot;&gt;&lt;/i&gt; Mobile Ready&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;!-- ══════════════════════════════════════════
+     TOOLS SECTION
+══════════════════════════════════════════ --&gt;
+&lt;section id=&quot;tools&quot; class=&quot;py-16 px-4&quot;&gt;
+  &lt;div class=&quot;max-w-7xl mx-auto&quot;&gt;
+    &lt;!-- Section header --&gt;
+    &lt;div class=&quot;reveal text-center mb-10&quot;&gt;
+      &lt;h2 class=&quot;font-display font-bold text-3xl md:text-4xl mb-2&quot; style=&quot;color:var(--text-primary)&quot;&gt;
+        All &lt;span style=&quot;color:var(--brand)&quot;&gt;Tools&lt;/span&gt;
+      &lt;/h2&gt;
+      &lt;p style=&quot;color:var(--text-secondary)&quot;&gt;Click any tool to open it instantly&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Search + filters --&gt;
+    &lt;div class=&quot;reveal mb-8&quot;&gt;
+      &lt;div class=&quot;relative mb-5 max-w-lg mx-auto&quot;&gt;
+        &lt;i class=&quot;fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2&quot; style=&quot;color:var(--text-secondary)&quot;&gt;&lt;/i&gt;
+        &lt;input id=&quot;tool-search&quot; type=&quot;text&quot; placeholder=&quot;Search tools...&quot; class=&quot;search-bar&quot; oninput=&quot;filterTools(this.value)&quot;/&gt;
+      &lt;/div&gt;
+      &lt;!-- Category pills --&gt;
+      &lt;div class=&quot;flex flex-wrap gap-2 justify-center&quot; id=&quot;cat-filters&quot;&gt;
+        &lt;button class=&quot;cat-pill active&quot; data-cat=&quot;all&quot; onclick=&quot;setCategory(this,'all')&quot;&gt;All&lt;/button&gt;
+        &lt;button class=&quot;cat-pill&quot; data-cat=&quot;image&quot; onclick=&quot;setCategory(this,'image')&quot;&gt;&lt;i class=&quot;fa-solid fa-image mr-1&quot;&gt;&lt;/i&gt;Image&lt;/button&gt;
+        &lt;button class=&quot;cat-pill&quot; data-cat=&quot;document&quot; onclick=&quot;setCategory(this,'document')&quot;&gt;&lt;i class=&quot;fa-solid fa-file-lines mr-1&quot;&gt;&lt;/i&gt;Document&lt;/button&gt;
+        &lt;button class=&quot;cat-pill&quot; data-cat=&quot;utility&quot; onclick=&quot;setCategory(this,'utility')&quot;&gt;&lt;i class=&quot;fa-solid fa-wrench mr-1&quot;&gt;&lt;/i&gt;Utility&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Tools grid --&gt;
+    &lt;div id=&quot;tools-grid&quot; class=&quot;grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5&quot;&gt;
+      &lt;!-- Cards injected by JS --&gt;
+    &lt;/div&gt;
+
+    &lt;p id=&quot;no-results&quot; class=&quot;hidden text-center mt-10&quot; style=&quot;color:var(--text-secondary)&quot;&gt;
+      &lt;i class=&quot;fa-solid fa-face-sad-tear mr-2&quot;&gt;&lt;/i&gt;No tools match your search.
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;!-- ══════════════════════════════════════════
+     FEATURES SECTION
+══════════════════════════════════════════ --&gt;
+&lt;section id=&quot;features&quot; class=&quot;py-16 px-4&quot; style=&quot;background:radial-gradient(ellipse 60% 40% at 50% 50%, rgba(14,69,235,0.07) 0%, transparent 70%)&quot;&gt;
+  &lt;div class=&quot;max-w-5xl mx-auto text-center&quot;&gt;
+    &lt;h2 class=&quot;reveal font-display font-bold text-3xl mb-2&quot; style=&quot;color:var(--text-primary)&quot;&gt;Why &lt;span style=&quot;color:var(--brand)&quot;&gt;ToolVerse?&lt;/span&gt;&lt;/h2&gt;
+    &lt;p class=&quot;reveal mb-10&quot; style=&quot;color:var(--text-secondary)&quot;&gt;Built for speed, privacy, and simplicity&lt;/p&gt;
+    &lt;div class=&quot;grid grid-cols-1 md:grid-cols-3 gap-5&quot;&gt;
+      &lt;div class=&quot;reveal glass rounded-2xl p-6 text-left&quot;&gt;
+        &lt;div class=&quot;tool-icon mb-4&quot;&gt;&lt;i class=&quot;fa-solid fa-shield-halved&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+        &lt;h3 class=&quot;font-display font-bold text-lg mb-2&quot; style=&quot;color:var(--text-primary)&quot;&gt;100% Private&lt;/h3&gt;
+        &lt;p class=&quot;text-sm&quot; style=&quot;color:var(--text-secondary)&quot;&gt;All processing happens in your browser. Your files never leave your device.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;reveal glass rounded-2xl p-6 text-left&quot; style=&quot;transition-delay:0.1s&quot;&gt;
+        &lt;div class=&quot;tool-icon mb-4&quot;&gt;&lt;i class=&quot;fa-solid fa-bolt&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+        &lt;h3 class=&quot;font-display font-bold text-lg mb-2&quot; style=&quot;color:var(--text-primary)&quot;&gt;Instant Processing&lt;/h3&gt;
+        &lt;p class=&quot;text-sm&quot; style=&quot;color:var(--text-secondary)&quot;&gt;No server round-trips. Results in milliseconds using modern Web APIs.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;reveal glass rounded-2xl p-6 text-left&quot; style=&quot;transition-delay:0.2s&quot;&gt;
+        &lt;div class=&quot;tool-icon mb-4&quot;&gt;&lt;i class=&quot;fa-solid fa-dollar-sign&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+        &lt;h3 class=&quot;font-display font-bold text-lg mb-2&quot; style=&quot;color:var(--text-primary)&quot;&gt;Completely Free&lt;/h3&gt;
+        &lt;p class=&quot;text-sm&quot; style=&quot;color:var(--text-secondary)&quot;&gt;No plans, no paywalls, no accounts. Every tool is free forever.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ --&gt;
+&lt;footer id=&quot;footer&quot; class=&quot;py-10 px-4 text-center&quot; style=&quot;border-top:1px solid var(--glass-border)&quot;&gt;
+  &lt;div class=&quot;max-w-4xl mx-auto&quot;&gt;
+    &lt;div class=&quot;flex justify-center gap-4 mb-4&quot;&gt;
+      &lt;a href=&quot;#&quot; class=&quot;btn-outline px-3 py-2&quot; style=&quot;border-radius:8px;font-size:14px&quot; title=&quot;GitHub&quot;&gt;&lt;i class=&quot;fa-brands fa-github&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;btn-outline px-3 py-2&quot; style=&quot;border-radius:8px;font-size:14px&quot; title=&quot;Twitter&quot;&gt;&lt;i class=&quot;fa-brands fa-twitter&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;btn-outline px-3 py-2&quot; style=&quot;border-radius:8px;font-size:14px&quot; title=&quot;LinkedIn&quot;&gt;&lt;i class=&quot;fa-brands fa-linkedin&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;btn-outline px-3 py-2&quot; style=&quot;border-radius:8px;font-size:14px&quot; title=&quot;YouTube&quot;&gt;&lt;i class=&quot;fa-brands fa-youtube&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;flex flex-wrap justify-center gap-4 mb-4 text-sm&quot; style=&quot;color:var(--text-secondary)&quot;&gt;
+      &lt;a href=&quot;#tools&quot; class=&quot;hover:text-brand transition-colors&quot;&gt;Tools&lt;/a&gt;
+      &lt;a href=&quot;#features&quot; class=&quot;hover:text-brand transition-colors&quot;&gt;Features&lt;/a&gt;
+      &lt;span&gt;Privacy Policy&lt;/span&gt;
+      &lt;span&gt;Terms of Service&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;text-sm&quot; style=&quot;color:var(--text-secondary)&quot;&gt;
+      &amp;copy; 2026 ToolVerse · Built with ❤️ · 100% browser-based
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/footer&gt;
+
+&lt;!-- ══════════════════════════════════════════
+     MODAL OVERLAY
+══════════════════════════════════════════ --&gt;
+&lt;div id=&quot;modal&quot; class=&quot;modal-overlay&quot; onclick=&quot;handleModalOverlayClick(event)&quot;&gt;
+  &lt;div class=&quot;modal-box&quot;&gt;
+    &lt;button onclick=&quot;closeModal()&quot; style=&quot;position:absolute;top:16px;right:16px;background:transparent;border:none;color:var(--text-secondary);cursor:pointer;font-size:18px;transition:color 0.2s;&quot; onmouseover=&quot;this.style.color='var(--text-primary)'&quot; onmouseout=&quot;this.style.color='var(--text-secondary)'&quot;&gt;
+      &lt;i class=&quot;fa-solid fa-xmark&quot;&gt;&lt;/i&gt;
+    &lt;/button&gt;
+    &lt;div id=&quot;modal-content&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- ══════════════════════════════════════════
+     TOAST CONTAINER
+══════════════════════════════════════════ --&gt;
+&lt;div id=&quot;toast-container&quot;&gt;&lt;/div&gt;
+
+&lt;!-- ══════════════════════════════════════════
+     EXTERNAL LIBRARIES (loaded lazily)
+══════════════════════════════════════════ --&gt;
+
+&lt;script&gt;
+// ═══════════════════════════════════════════════════════════
+//  TOOL DEFINITIONS
+// ═══════════════════════════════════════════════════════════
+const TOOLS = [
+  {
+    id: 'bg-remover',
+    title: 'Background Remover',
+    desc: 'Remove image backgrounds using Canvas AI processing. Upload &amp; download PNG.',
+    icon: 'fa-solid fa-scissors',
+    cat: 'image',
+    color: '#7C3AED'
+  },
+  {
+    id: 'qr-gen',
+    title: 'QR Code Generator',
+    desc: 'Turn any text or URL into a downloadable QR code instantly.',
+    icon: 'fa-solid fa-qrcode',
+    cat: 'utility',
+    color: '#0E45EB'
+  },
+  {
+    id: 'text-pdf',
+    title: 'Text → PDF',
+    desc: 'Convert any text or HTML content into a downloadable PDF file.',
+    icon: 'fa-solid fa-file-pdf',
+    cat: 'document',
+    color: '#EF4444'
+  },
+  {
+    id: 'pdf-text',
+    title: 'PDF → Text',
+    desc: 'Upload a PDF and extract all text content as editable text.',
+    icon: 'fa-solid fa-file-export',
+    cat: 'document',
+    color: '#F59E0B'
+  },
+  {
+    id: 'text-doc',
+    title: 'Text → DOC',
+    desc: 'Export your text as a Microsoft Word .doc file instantly.',
+    icon: 'fa-solid fa-file-word',
+    cat: 'document',
+    color: '#2563EB'
+  },
+  {
+    id: 'doc-text',
+    title: 'DOC → Text',
+    desc: 'Extract plain text from Word DOC/DOCX files directly in browser.',
+    icon: 'fa-solid fa-align-left',
+    cat: 'document',
+    color: '#059669'
+  },
+  {
+    id: 'ocr',
+    title: 'Image → Text (OCR)',
+    desc: 'Extract text from images using Tesseract.js OCR engine.',
+    icon: 'fa-solid fa-eye',
+    cat: 'image',
+    color: '#D946EF'
+  },
+  {
+    id: 'yt-thumb',
+    title: 'YouTube Thumbnail',
+    desc: 'Fetch &amp; download all thumbnail sizes from any YouTube video URL.',
+    icon: 'fa-brands fa-youtube',
+    cat: 'utility',
+    color: '#FF0000'
+  },
+  {
+    id: 'pass-gen',
+    title: 'Password Generator',
+    desc: 'Generate strong passwords with strength meter and copy-to-clipboard.',
+    icon: 'fa-solid fa-key',
+    cat: 'utility',
+    color: '#10B981'
+  }
+];
+
+// ═══════════════════════════════════════════════════════════
+//  RENDER TOOL CARDS
+// ═══════════════════════════════════════════════════════════
+function renderCards(list) {
+  const grid = document.getElementById('tools-grid');
+  const noRes = document.getElementById('no-results');
+  grid.innerHTML = '';
+  if (list.length === 0) { noRes.classList.remove('hidden'); return; }
+  noRes.classList.add('hidden');
+  list.forEach((tool, i) =&gt; {
+    const card = document.createElement('div');
+    card.className = 'tool-card p-6 reveal';
+    card.style.transitionDelay = `${i * 0.05}s`;
+    card.dataset.cat = tool.cat;
+    card.innerHTML = `
+      &lt;div class=&quot;flex items-start gap-4 mb-4&quot;&gt;
+        &lt;div class=&quot;tool-icon flex-shrink-0&quot; style=&quot;background:linear-gradient(135deg,${tool.color},${tool.color}cc)&quot;&gt;
+          &lt;i class=&quot;${tool.icon} text-white&quot;&gt;&lt;/i&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;h3 class=&quot;font-display font-bold text-base mb-1&quot; style=&quot;color:var(--text-primary)&quot;&gt;${tool.title}&lt;/h3&gt;
+          &lt;p class=&quot;text-xs leading-relaxed&quot; style=&quot;color:var(--text-secondary)&quot;&gt;${tool.desc}&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;flex items-center justify-between mt-4&quot;&gt;
+        &lt;span class=&quot;text-xs px-2 py-1 rounded-md&quot; style=&quot;background:var(--brand-soft);color:#7BA4FF;font-weight:600&quot;&gt;${tool.cat}&lt;/span&gt;
+        &lt;button class=&quot;btn-primary flex items-center gap-2 text-xs px-4 py-2&quot; onclick=&quot;openTool('${tool.id}')&quot;&gt;
+          Open &lt;i class=&quot;fa-solid fa-arrow-right&quot;&gt;&lt;/i&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    `;
+    // Mouse-tracking glow
+    card.addEventListener('mousemove', e =&gt; {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width) * 100;
+      const y = ((e.clientY - r.top) / r.height) * 100;
+      card.style.setProperty('--mx', x + '%');
+      card.style.setProperty('--my', y + '%');
+    });
+    grid.appendChild(card);
+  });
+  initReveal();
+}
+
+let currentCat = 'all', currentSearch = '';
+function filterTools(q) {
+  currentSearch = q.toLowerCase();
+  applyFilters();
+  // sync search inputs
+  document.getElementById('tool-search').value = q;
+  const ns = document.getElementById('nav-search');
+  if (ns) ns.value = q;
+}
+function setCategory(el, cat) {
+  document.querySelectorAll('.cat-pill').forEach(p =&gt; p.classList.remove('active'));
+  el.classList.add('active');
+  currentCat = cat;
+  applyFilters();
+}
+function applyFilters() {
+  const filtered = TOOLS.filter(t =&gt; {
+    const matchCat = currentCat === 'all' || t.cat === currentCat;
+    const matchSearch = !currentSearch || t.title.toLowerCase().includes(currentSearch) || t.desc.toLowerCase().includes(currentSearch);
+    return matchCat &amp;&amp; matchSearch;
+  });
+  renderCards(filtered);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  MODAL
+// ═══════════════════════════════════════════════════════════
+function openTool(id) {
+  const modal = document.getElementById('modal');
+  const content = document.getElementById('modal-content');
+  content.innerHTML = getToolHTML(id);
+  modal.classList.add('active');
+  initToolLogic(id);
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+}
+function handleModalOverlayClick(e) {
+  if (e.target === document.getElementById('modal')) closeModal();
+}
+document.addEventListener('keydown', e =&gt; { if (e.key === 'Escape') closeModal(); });
+
+// ═══════════════════════════════════════════════════════════
+//  TOOL HTML TEMPLATES
+// ═══════════════════════════════════════════════════════════
+function getToolHTML(id) {
+  const templates = {
+    'bg-remover': `
+      &lt;h2 class=&quot;font-display font-bold text-2xl mb-1&quot; style=&quot;color:var(--text-primary)&quot;&gt;&lt;i class=&quot;fa-solid fa-scissors mr-2&quot; style=&quot;color:#7C3AED&quot;&gt;&lt;/i&gt;Background Remover&lt;/h2&gt;
+      &lt;p class=&quot;text-sm mb-5&quot; style=&quot;color:var(--text-secondary)&quot;&gt;Upload an image to remove its background using Canvas processing.&lt;/p&gt;
+      &lt;div class=&quot;dropzone&quot; id=&quot;bg-drop&quot; onclick=&quot;document.getElementById('bg-input').click()&quot;&gt;
+        &lt;i class=&quot;fa-solid fa-cloud-arrow-up text-3xl mb-2&quot; style=&quot;color:var(--brand)&quot;&gt;&lt;/i&gt;
+        &lt;p class=&quot;font-medium&quot; style=&quot;color:var(--text-primary)&quot;&gt;Drop image here or click to upload&lt;/p&gt;
+        &lt;p class=&quot;text-xs mt-1&quot; style=&quot;color:var(--text-secondary)&quot;&gt;PNG, JPG, WebP supported&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;input type=&quot;file&quot; id=&quot;bg-input&quot; accept=&quot;image/*&quot; class=&quot;hidden&quot;/&gt;
+      &lt;div id=&quot;bg-result&quot; class=&quot;hidden mt-5&quot;&gt;
+        &lt;div class=&quot;grid grid-cols-2 gap-4 mb-4&quot;&gt;
+          &lt;div class=&quot;text-center&quot;&gt;
+            &lt;p class=&quot;text-xs font-semibold mb-2&quot; style=&quot;color:var(--text-secondary)&quot;&gt;ORIGINAL&lt;/p&gt;
+            &lt;img id=&quot;bg-original&quot; class=&quot;preview-img mx-auto&quot;/&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;text-center&quot;&gt;
+            &lt;p class=&quot;text-xs font-semibold mb-2&quot; style=&quot;color:var(--text-secondary)&quot;&gt;PROCESSED&lt;/p&gt;
+            &lt;canvas id=&quot;bg-canvas&quot; class=&quot;preview-img mx-auto&quot; style=&quot;background:repeating-conic-gradient(#30304040 0% 25%,transparent 0% 50%) 0 0/20px 20px&quot;&gt;&lt;/canvas&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;bg-spinner&quot; class=&quot;flex justify-center my-4&quot;&gt;&lt;div class=&quot;spinner&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;button id=&quot;bg-download&quot; class=&quot;btn-primary w-full hidden&quot; onclick=&quot;downloadBG()&quot;&gt;&lt;i class=&quot;fa-solid fa-download mr-2&quot;&gt;&lt;/i&gt;Download PNG&lt;/button&gt;
+      &lt;/div&gt;`,
+
+    'qr-gen': `
+      &lt;h2 class=&quot;font-display font-bold text-2xl mb-1&quot; style=&quot;color:var(--text-primary)&quot;&gt;&lt;i class=&quot;fa-solid fa-qrcode mr-2&quot; style=&quot;color:var(--brand)&quot;&gt;&lt;/i&gt;QR Code Generator&lt;/h2&gt;
+      &lt;p class=&quot;text-sm mb-5&quot; style=&quot;color:var(--text-secondary)&quot;&gt;Generate a QR code from any text or URL.&lt;/p&gt;
+      &lt;input type=&quot;text&quot; id=&quot;qr-input&quot; class=&quot;tool-input mb-3&quot; placeholder=&quot;Enter text or URL...&quot; oninput=&quot;generateQR()&quot;/&gt;
+      &lt;div class=&quot;grid grid-cols-2 gap-3 mb-4&quot;&gt;
+        &lt;div&gt;
+          &lt;label class=&quot;text-xs font-semibold mb-1 block&quot; style=&quot;color:var(--text-secondary)&quot;&gt;QR Size&lt;/label&gt;
+          &lt;select id=&quot;qr-size&quot; class=&quot;tool-input&quot; onchange=&quot;generateQR()&quot;&gt;
+            &lt;option value=&quot;150&quot;&gt;Small (150px)&lt;/option&gt;
+            &lt;option value=&quot;256&quot; selected&gt;Medium (256px)&lt;/option&gt;
+            &lt;option value=&quot;400&quot;&gt;Large (400px)&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;label class=&quot;text-xs font-semibold mb-1 block&quot; style=&quot;color:var(--text-secondary)&quot;&gt;Color&lt;/label&gt;
+          &lt;input type=&quot;color&quot; id=&quot;qr-color&quot; value=&quot;#0E45EB&quot; class=&quot;tool-input&quot; style=&quot;height:40px;padding:4px;cursor:pointer&quot; onchange=&quot;generateQR()&quot;/&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div id=&quot;qr-result&quot; class=&quot;flex flex-col items-center gap-4 mt-2&quot;&gt;&lt;/div&gt;`,
+
+    'text-pdf': `
+      &lt;h2 class=&quot;font-display font-bold text-2xl mb-1&quot; style=&quot;color:var(--text-primary)&quot;&gt;&lt;i class=&quot;fa-solid fa-file-pdf mr-2&quot; style=&quot;color:#EF4444&quot;&gt;&lt;/i&gt;Text → PDF&lt;/h2&gt;
+      &lt;p class=&quot;text-sm mb-4&quot; style=&quot;color:var(--text-secondary)&quot;&gt;Convert your text into a downloadable PDF file.&lt;/p&gt;
+      &lt;input type=&quot;text&quot; id=&quot;pdf-title&quot; class=&quot;tool-input mb-3&quot; placeholder=&quot;Document title (optional)&quot;/&gt;
+      &lt;textarea id=&quot;pdf-text&quot; class=&quot;tool-input mb-4&quot; placeholder=&quot;Paste or type your text here...&quot; style=&quot;min-height:180px&quot;&gt;&lt;/textarea&gt;
+      &lt;button class=&quot;btn-primary w-full&quot; onclick=&quot;textToPDF()&quot;&gt;&lt;i class=&quot;fa-solid fa-file-pdf mr-2&quot;&gt;&lt;/i&gt;Generate &amp; Download PDF&lt;/button&gt;`,
+
+    'pdf-text': `
+      &lt;h2 class=&quot;font-display font-bold text-2xl mb-1&quot; style=&quot;color:var(--text-primary)&quot;&gt;&lt;i class=&quot;fa-solid fa-file-export mr-2&quot; style=&quot;color:#F59E0B&quot;&gt;&lt;/i&gt;PDF → Text&lt;/h2&gt;
+      &lt;p class=&quot;text-sm mb-4&quot; style=&quot;color:var(--text-secondary)&quot;&gt;Upload a PDF to extract its text content.&lt;/p&gt;
+      &lt;div class=&quot;dropzone mb-4&quot; id=&quot;pdf-drop&quot; onclick=&quot;document.getElementById('pdf-input').click()&quot;&gt;
+        &lt;i class=&quot;fa-solid fa-file-pdf text-3xl mb-2&quot; style=&quot;color:#F59E0B&quot;&gt;&lt;/i&gt;
+        &lt;p class=&quot;font-medium&quot; style=&quot;color:var(--text-primary)&quot;&gt;Click or drop PDF here&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;input type=&quot;file&quot; id=&quot;pdf-input&quot; accept=&quot;.pdf&quot; class=&quot;hidden&quot;/&gt;
+      &lt;div id=&quot;pdf-spinner&quot; class=&quot;hidden flex justify-center my-4&quot;&gt;&lt;div class=&quot;spinner&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;textarea id=&quot;pdf-output&quot; class=&quot;tool-input hidden mb-3&quot; style=&quot;min-height:180px&quot; readonly placeholder=&quot;Extracted text will appear here...&quot;&gt;&lt;/textarea&gt;
+      &lt;button id=&quot;pdf-copy-btn&quot; class=&quot;btn-primary hidden&quot; onclick=&quot;copyText('pdf-output')&quot;&gt;&lt;i class=&quot;fa-solid fa-copy mr-2&quot;&gt;&lt;/i&gt;Copy Text&lt;/button&gt;`,
+
+    'text-doc': `
+      &lt;h2 class=&quot;font-display font-bold text-2xl mb-1&quot; style=&quot;color:var(--text-primary)&quot;&gt;&lt;i class=&quot;fa-solid fa-file-word mr-2&quot; style=&quot;color:#2563EB&quot;&gt;&lt;/i&gt;Text → DOC&lt;/h2&gt;
+      &lt;p class=&quot;text-sm mb-4&quot; style=&quot;color:var(--text-secondary)&quot;&gt;Export your text as a Microsoft Word .doc file.&lt;/p&gt;
+      &lt;input type=&quot;text&quot; id=&quot;doc-title&quot; class=&quot;tool-input mb-3&quot; placeholder=&quot;Document title (optional)&quot;/&gt;
+      &lt;textarea id=&quot;doc-text&quot; class=&quot;tool-input mb-4&quot; placeholder=&quot;Enter your text...&quot; style=&quot;min-height:180px&quot;&gt;&lt;/textarea&gt;
+      &lt;button class=&quot;btn-primary w-full&quot; onclick=&quot;textToDoc()&quot;&gt;&lt;i class=&quot;fa-solid fa-file-word mr-2&quot;&gt;&lt;/i&gt;Download as .DOC&lt;/button&gt;`,
+
+    'doc-text': `
+      &lt;h2 class=&quot;font-display font-bold text-2xl mb-1&quot; style=&quot;color:var(--text-primary)&quot;&gt;&lt;i class=&quot;fa-solid fa-align-left mr-2&quot; style=&quot;color:#059669&quot;&gt;&lt;/i&gt;DOC → Text&lt;/h2&gt;
+      &lt;p class=&quot;text-sm mb-4&quot; style=&quot;color:var(--text-secondary)&quot;&gt;Upload a DOC or DOCX file to extract its text.&lt;/p&gt;
+      &lt;div class=&quot;dropzone mb-4&quot; id=&quot;doc-drop&quot; onclick=&quot;document.getElementById('doc-input').click()&quot;&gt;
+        &lt;i class=&quot;fa-solid fa-file-word text-3xl mb-2&quot; style=&quot;color:#059669&quot;&gt;&lt;/i&gt;
+        &lt;p class=&quot;font-medium&quot; style=&quot;color:var(--text-primary)&quot;&gt;Click or drop DOC/DOCX here&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;input type=&quot;file&quot; id=&quot;doc-input&quot; accept=&quot;.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document&quot; class=&quot;hidden&quot;/&gt;
+      &lt;div id=&quot;doc-spinner&quot; class=&quot;hidden flex justify-center my-4&quot;&gt;&lt;div class=&quot;spinner&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;textarea id=&quot;doc-output&quot; class=&quot;tool-input hidden mb-3&quot; style=&quot;min-height:180px&quot; readonly&gt;&lt;/textarea&gt;
+      &lt;button id=&quot;doc-copy-btn&quot; class=&quot;btn-primary hidden&quot; onclick=&quot;copyText('doc-output')&quot;&gt;&lt;i class=&quot;fa-solid fa-copy mr-2&quot;&gt;&lt;/i&gt;Copy Text&lt;/button&gt;`,
+
+    'ocr': `
+      &lt;h2 class=&quot;font-display font-bold text-2xl mb-1&quot; style=&quot;color:var(--text-primary)&quot;&gt;&lt;i class=&quot;fa-solid fa-eye mr-2&quot; style=&quot;color:#D946EF&quot;&gt;&lt;/i&gt;Image → Text (OCR)&lt;/h2&gt;
+      &lt;p class=&quot;text-sm mb-4&quot; style=&quot;color:var(--text-secondary)&quot;&gt;Extract text from images using Tesseract.js. First use may take a moment to load.&lt;/p&gt;
+      &lt;div class=&quot;dropzone mb-4&quot; id=&quot;ocr-drop&quot; onclick=&quot;document.getElementById('ocr-input').click()&quot;&gt;
+        &lt;i class=&quot;fa-solid fa-image text-3xl mb-2&quot; style=&quot;color:#D946EF&quot;&gt;&lt;/i&gt;
+        &lt;p class=&quot;font-medium&quot; style=&quot;color:var(--text-primary)&quot;&gt;Click or drop image here&lt;/p&gt;
+        &lt;p class=&quot;text-xs mt-1&quot; style=&quot;color:var(--text-secondary)&quot;&gt;PNG, JPG, GIF, BMP&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;input type=&quot;file&quot; id=&quot;ocr-input&quot; accept=&quot;image/*&quot; class=&quot;hidden&quot;/&gt;
+      &lt;div id=&quot;ocr-progress&quot; class=&quot;hidden mb-3&quot;&gt;
+        &lt;div class=&quot;flex justify-between text-xs mb-1&quot; style=&quot;color:var(--text-secondary)&quot;&gt;
+          &lt;span id=&quot;ocr-status&quot;&gt;Initializing...&lt;/span&gt;&lt;span id=&quot;ocr-pct&quot;&gt;0%&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div style=&quot;background:var(--glass-bg);border-radius:4px;height:6px;overflow:hidden&quot;&gt;
+          &lt;div id=&quot;ocr-bar&quot; class=&quot;strength-bar&quot; style=&quot;background:var(--brand);width:0%&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;textarea id=&quot;ocr-output&quot; class=&quot;tool-input hidden mb-3&quot; style=&quot;min-height:160px&quot; readonly placeholder=&quot;Extracted text...&quot;&gt;&lt;/textarea&gt;
+      &lt;button id=&quot;ocr-copy-btn&quot; class=&quot;btn-primary hidden&quot; onclick=&quot;copyText('ocr-output')&quot;&gt;&lt;i class=&quot;fa-solid fa-copy mr-2&quot;&gt;&lt;/i&gt;Copy Text&lt;/button&gt;`,
+
+    'yt-thumb': `
+      &lt;h2 class=&quot;font-display font-bold text-2xl mb-1&quot; style=&quot;color:var(--text-primary)&quot;&gt;&lt;i class=&quot;fa-brands fa-youtube mr-2&quot; style=&quot;color:#FF0000&quot;&gt;&lt;/i&gt;YouTube Thumbnail Downloader&lt;/h2&gt;
+      &lt;p class=&quot;text-sm mb-4&quot; style=&quot;color:var(--text-secondary)&quot;&gt;Paste a YouTube URL to fetch all available thumbnail sizes.&lt;/p&gt;
+      &lt;div class=&quot;flex gap-2 mb-5&quot;&gt;
+        &lt;input type=&quot;text&quot; id=&quot;yt-input&quot; class=&quot;tool-input flex-1&quot; placeholder=&quot;https://youtube.com/watch?v=...&quot;/&gt;
+        &lt;button class=&quot;btn-primary px-4&quot; onclick=&quot;fetchThumbs()&quot;&gt;&lt;i class=&quot;fa-solid fa-search&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div id=&quot;yt-result&quot;&gt;&lt;/div&gt;`,
+
+    'pass-gen': `
+      &lt;h2 class=&quot;font-display font-bold text-2xl mb-1&quot; style=&quot;color:var(--text-primary)&quot;&gt;&lt;i class=&quot;fa-solid fa-key mr-2&quot; style=&quot;color:#10B981&quot;&gt;&lt;/i&gt;Password Generator&lt;/h2&gt;
+      &lt;p class=&quot;text-sm mb-5&quot; style=&quot;color:var(--text-secondary)&quot;&gt;Generate a strong, custom password.&lt;/p&gt;
+      &lt;!-- Password output --&gt;
+      &lt;div class=&quot;flex gap-2 mb-5&quot;&gt;
+        &lt;input id=&quot;pass-output&quot; type=&quot;text&quot; class=&quot;tool-input flex-1 font-mono text-base&quot; readonly placeholder=&quot;Click Generate&quot;/&gt;
+        &lt;button class=&quot;btn-outline px-3&quot; onclick=&quot;copyPass()&quot; title=&quot;Copy&quot;&gt;&lt;i class=&quot;fa-solid fa-copy&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+        &lt;button class=&quot;btn-primary px-3&quot; onclick=&quot;generatePassword()&quot; title=&quot;Refresh&quot;&gt;&lt;i class=&quot;fa-solid fa-rotate&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;!-- Strength meter --&gt;
+      &lt;div class=&quot;mb-5&quot;&gt;
+        &lt;div class=&quot;flex justify-between text-xs mb-1&quot; style=&quot;color:var(--text-secondary)&quot;&gt;&lt;span&gt;Strength&lt;/span&gt;&lt;span id=&quot;pass-strength-label&quot;&gt;—&lt;/span&gt;&lt;/div&gt;
+        &lt;div style=&quot;background:var(--glass-bg);border-radius:4px;height:6px;overflow:hidden&quot;&gt;
+          &lt;div id=&quot;pass-strength-bar&quot; class=&quot;strength-bar&quot; style=&quot;width:0%&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;!-- Controls --&gt;
+      &lt;div class=&quot;space-y-4&quot;&gt;
+        &lt;div&gt;
+          &lt;div class=&quot;flex justify-between text-xs mb-1&quot; style=&quot;color:var(--text-secondary)&quot;&gt;&lt;span&gt;Length&lt;/span&gt;&lt;span id=&quot;len-val&quot; class=&quot;font-bold&quot; style=&quot;color:var(--brand)&quot;&gt;16&lt;/span&gt;&lt;/div&gt;
+          &lt;input type=&quot;range&quot; id=&quot;pass-len&quot; min=&quot;6&quot; max=&quot;64&quot; value=&quot;16&quot; class=&quot;w-full&quot; oninput=&quot;document.getElementById('len-val').textContent=this.value;generatePassword()&quot;/&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;grid grid-cols-2 gap-3&quot;&gt;
+          &lt;label class=&quot;flex items-center gap-2 cursor-pointer text-sm&quot; style=&quot;color:var(--text-primary)&quot;&gt;
+            &lt;input type=&quot;checkbox&quot; id=&quot;inc-upper&quot; checked onchange=&quot;generatePassword()&quot; class=&quot;accent-brand&quot;/&gt; Uppercase (A-Z)
+          &lt;/label&gt;
+          &lt;label class=&quot;flex items-center gap-2 cursor-pointer text-sm&quot; style=&quot;color:var(--text-primary)&quot;&gt;
+            &lt;input type=&quot;checkbox&quot; id=&quot;inc-lower&quot; checked onchange=&quot;generatePassword()&quot; class=&quot;accent-brand&quot;/&gt; Lowercase (a-z)
+          &lt;/label&gt;
+          &lt;label class=&quot;flex items-center gap-2 cursor-pointer text-sm&quot; style=&quot;color:var(--text-primary)&quot;&gt;
+            &lt;input type=&quot;checkbox&quot; id=&quot;inc-num&quot; checked onchange=&quot;generatePassword()&quot; class=&quot;accent-brand&quot;/&gt; Numbers (0-9)
+          &lt;/label&gt;
+          &lt;label class=&quot;flex items-center gap-2 cursor-pointer text-sm&quot; style=&quot;color:var(--text-primary)&quot;&gt;
+            &lt;input type=&quot;checkbox&quot; id=&quot;inc-sym&quot; checked onchange=&quot;generatePassword()&quot; class=&quot;accent-brand&quot;/&gt; Symbols (!@#$)
+          &lt;/label&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;`
+  };
+  return templates[id] || '&lt;p&gt;Tool not found.&lt;/p&gt;';
+}
+
+// ═══════════════════════════════════════════════════════════
+//  TOOL LOGIC INIT
+// ═══════════════════════════════════════════════════════════
+function initToolLogic(id) {
+  switch (id) {
+    case 'bg-remover': initBGRemover(); break;
+    case 'qr-gen': initQR(); break;
+    case 'pdf-text': initPDFExtract(); break;
+    case 'doc-text': initDocExtract(); break;
+    case 'ocr': initOCR(); break;
+    case 'pass-gen': generatePassword(); break;
+  }
+}
+
+// ─── 1. BACKGROUND REMOVER ────────────────────────────────
+function initBGRemover() {
+  const input = document.getElementById('bg-input');
+  const drop = document.getElementById('bg-drop');
+
+  setupDrop(drop, file =&gt; processImage(file));
+  input.onchange = e =&gt; processImage(e.target.files[0]);
+}
+function processImage(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e =&gt; {
+    const img = new Image();
+    img.onload = () =&gt; {
+      document.getElementById('bg-original').src = e.target.result;
+      document.getElementById('bg-result').classList.remove('hidden');
+      document.getElementById('bg-spinner').classList.remove('hidden');
+      document.getElementById('bg-download').classList.add('hidden');
+
+      setTimeout(() =&gt; {
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+
+        // Sample corners for background color
+        const corners = [[0,0],[img.width-1,0],[0,img.height-1],[img.width-1,img.height-1]];
+        let bgR=0, bgG=0, bgB=0;
+        corners.forEach(([x,y]) =&gt; {
+          const i = (y * canvas.width + x) * 4;
+          bgR += data[i]; bgG += data[i+1]; bgB += data[i+2];
+        });
+        bgR=Math.round(bgR/4); bgG=Math.round(bgG/4); bgB=Math.round(bgB/4);
+
+        const threshold = 40;
+        for (let i = 0; i &lt; data.length; i += 4) {
+          const r=data[i], g=data[i+1], b=data[i+2];
+          const dist = Math.sqrt((r-bgR)**2+(g-bgG)**2+(b-bgB)**2);
+          if (dist &lt; threshold) data[i+3] = 0;
+        }
+        ctx.putImageData(imageData, 0, 0);
+
+        document.getElementById('bg-spinner').classList.add('hidden');
+        document.getElementById('bg-download').classList.remove('hidden');
+        showToast('Background removed! Download your PNG.', 'success');
+      }, 100);
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function downloadBG() {
+  const canvas = document.getElementById('bg-canvas');
+  const a = document.createElement('a');
+  a.download = 'toolverse-bg-removed.png';
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+  showToast('Download started!', 'success');
+}
+
+// ─── 2. QR CODE GENERATOR ────────────────────────────────
+function initQR() {
+  loadScript('https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js', () =&gt; {
+    document.getElementById('qr-input').dispatchEvent(new Event('input'));
+  });
+}
+function generateQR() {
+  if (typeof QRCode === 'undefined') return;
+  const text = document.getElementById('qr-input').value.trim() || 'https://toolverse.app';
+  const size = parseInt(document.getElementById('qr-size').value);
+  const color = document.getElementById('qr-color').value;
+  const res = document.getElementById('qr-result');
+  res.innerHTML = '';
+
+  const div = document.createElement('div');
+  res.appendChild(div);
+  new QRCode(div, { text, width: size, height: size, colorDark: color, colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H });
+
+  setTimeout(() =&gt; {
+    const canvas = div.querySelector('canvas') || div.querySelector('img');
+    if (!canvas) return;
+    const dlBtn = document.createElement('button');
+    dlBtn.className = 'btn-primary flex items-center gap-2';
+    dlBtn.innerHTML = '&lt;i class=&quot;fa-solid fa-download&quot;&gt;&lt;/i&gt; Download QR';
+    dlBtn.onclick = () =&gt; {
+      const c = div.querySelector('canvas');
+      if (c) {
+        const a = document.createElement('a');
+        a.href = c.toDataURL(); a.download = 'qrcode.png'; a.click();
+      } else {
+        const img = div.querySelector('img');
+        const a = document.createElement('a');
+        a.href = img.src; a.download = 'qrcode.png'; a.click();
+      }
+      showToast('QR Code downloaded!', 'success');
+    };
+    res.appendChild(dlBtn);
+  }, 300);
+}
+
+// ─── 3. TEXT → PDF ────────────────────────────────────────
+function textToPDF() {
+  const title = document.getElementById('pdf-title').value || 'Document';
+  const text = document.getElementById('pdf-text').value;
+  if (!text.trim()) { showToast('Please enter some text first.', 'error'); return; }
+
+  // Build a minimal print-ready HTML and open print dialog
+  const html = `&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;${title}&lt;/title&gt;
+  &lt;style&gt;body{font-family:Georgia,serif;font-size:14px;line-height:1.8;margin:60px;color:#111}
+  h1{font-size:22px;margin-bottom:24px;border-bottom:2px solid #0E45EB;padding-bottom:8px}&lt;/style&gt;
+  &lt;/head&gt;&lt;body&gt;&lt;h1&gt;${title}&lt;/h1&gt;&lt;p style=&quot;white-space:pre-wrap&quot;&gt;${escapeHTML(text)}&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;`;
+
+  const win = window.open('', '_blank');
+  win.document.write(html);
+  win.document.close();
+  win.focus();
+  setTimeout(() =&gt; { win.print(); }, 400);
+  showToast('Print dialog opened — save as PDF!', 'success');
+}
+
+// ─── 4. PDF → TEXT ────────────────────────────────────────
+function initPDFExtract() {
+  const input = document.getElementById('pdf-input');
+  const drop = document.getElementById('pdf-drop');
+  setupDrop(drop, f =&gt; extractPDFText(f));
+  input.onchange = e =&gt; extractPDFText(e.target.files[0]);
+}
+function extractPDFText(file) {
+  if (!file) return;
+  const spinner = document.getElementById('pdf-spinner');
+  const output = document.getElementById('pdf-output');
+  const copyBtn = document.getElementById('pdf-copy-btn');
+  spinner.classList.remove('hidden');
+  output.classList.add('hidden');
+  copyBtn.classList.add('hidden');
+
+  loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js', async () =&gt; {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    const reader = new FileReader();
+    reader.onload = async e =&gt; {
+      try {
+        const pdf = await pdfjsLib.getDocument({ data: e.target.result }).promise;
+        let fullText = '';
+        for (let i = 1; i &lt;= pdf.numPages; i++) {
+          const page = await pdf.getPage(i);
+          const tc = await page.getTextContent();
+          fullText += tc.items.map(s =&gt; s.str).join(' ') + '\n\n';
+        }
+        spinner.classList.add('hidden');
+        output.value = fullText.trim() || '(No text found in PDF)';
+        output.classList.remove('hidden');
+        copyBtn.classList.remove('hidden');
+        showToast(`Extracted text from ${pdf.numPages} page(s)!`, 'success');
+      } catch (err) {
+        spinner.classList.add('hidden');
+        showToast('Failed to read PDF. Is it password protected?', 'error');
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  });
+}
+
+// ─── 5. TEXT → DOC ────────────────────────────────────────
+function textToDoc() {
+  const title = document.getElementById('doc-title').value || 'Document';
+  const text = document.getElementById('doc-text').value;
+  if (!text.trim()) { showToast('Please enter some text first.', 'error'); return; }
+
+  const html = `&lt;html xmlns:o='urn:schemas-microsoft-com:office:office'
+    xmlns:w='urn:schemas-microsoft-com:office:word'
+    xmlns='http://www.w3.org/TR/REC-html40'&gt;
+    &lt;head&gt;&lt;meta charset='utf-8'&gt;&lt;title&gt;${title}&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;&lt;h1&gt;${escapeHTML(title)}&lt;/h1&gt;&lt;p style=&quot;white-space:pre-wrap;font-family:Calibri,sans-serif;font-size:11pt;line-height:1.6&quot;&gt;${escapeHTML(text)}&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;`;
+
+  const blob = new Blob([html], { type: 'application/msword' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${title.replace(/\s+/g, '_')}.doc`;
+  a.click();
+  showToast('DOC file downloaded!', 'success');
+}
+
+// ─── 6. DOC → TEXT ────────────────────────────────────────
+function initDocExtract() {
+  const input = document.getElementById('doc-input');
+  const drop = document.getElementById('doc-drop');
+  setupDrop(drop, f =&gt; extractDocText(f));
+  input.onchange = e =&gt; extractDocText(e.target.files[0]);
+}
+function extractDocText(file) {
+  if (!file) return;
+  const spinner = document.getElementById('doc-spinner');
+  const output = document.getElementById('doc-output');
+  const copyBtn = document.getElementById('doc-copy-btn');
+  spinner.classList.remove('hidden');
+
+  // Use mammoth.js for DOCX
+  loadScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js', () =&gt; {
+    const reader = new FileReader();
+    reader.onload = async e =&gt; {
+      try {
+        const result = await mammoth.extractRawText({ arrayBuffer: e.target.result });
+        spinner.classList.add('hidden');
+        output.value = result.value.trim() || '(No text found)';
+        output.classList.remove('hidden');
+        copyBtn.classList.remove('hidden');
+        showToast('Text extracted successfully!', 'success');
+      } catch (err) {
+        spinner.classList.add('hidden');
+        showToast('Failed to read document.', 'error');
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  });
+}
+
+// ─── 7. OCR ───────────────────────────────────────────────
+function initOCR() {
+  const input = document.getElementById('ocr-input');
+  const drop = document.getElementById('ocr-drop');
+  setupDrop(drop, f =&gt; runOCR(f));
+  input.onchange = e =&gt; runOCR(e.target.files[0]);
+}
+function runOCR(file) {
+  if (!file) return;
+  const progress = document.getElementById('ocr-progress');
+  const bar = document.getElementById('ocr-bar');
+  const status = document.getElementById('ocr-status');
+  const pct = document.getElementById('ocr-pct');
+  const output = document.getElementById('ocr-output');
+  const copyBtn = document.getElementById('ocr-copy-btn');
+
+  progress.classList.remove('hidden');
+  output.classList.add('hidden');
+  copyBtn.classList.add('hidden');
+
+  loadScript('https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js', async () =&gt; {
+    const worker = await Tesseract.createWorker('eng', 1, {
+      logger: m =&gt; {
+        if (m.status === 'recognizing text') {
+          const p = Math.round(m.progress * 100);
+          bar.style.width = p + '%';
+          pct.textContent = p + '%';
+          status.textContent = 'Recognizing text...';
+        } else {
+          status.textContent = m.status;
+        }
+      }
+    });
+    try {
+      const { data: { text } } = await worker.recognize(file);
+      await worker.terminate();
+      progress.classList.add('hidden');
+      output.value = text.trim() || '(No text detected)';
+      output.classList.remove('hidden');
+      copyBtn.classList.remove('hidden');
+      showToast('OCR complete!', 'success');
+    } catch (e) {
+      progress.classList.add('hidden');
+      showToast('OCR failed. Try a clearer image.', 'error');
+    }
+  });
+}
+
+// ─── 8. YOUTUBE THUMBNAILS ───────────────────────────────
+function fetchThumbs() {
+  const url = document.getElementById('yt-input').value.trim();
+  const match = url.match(/(?:v=|youtu\.be\/|shorts\/)([a-zA-Z0-9_-]{11})/);
+  const res = document.getElementById('yt-result');
+  if (!match) { showToast('Invalid YouTube URL!', 'error'); return; }
+  const vid = match[1];
+  const sizes = [
+    { label: 'Max HD (1280×720)', key: 'maxresdefault', w: 1280, h: 720 },
+    { label: 'High (480×360)', key: 'hqdefault', w: 480, h: 360 },
+    { label: 'Medium (320×180)', key: 'mqdefault', w: 320, h: 180 },
+    { label: 'Standard (120×90)', key: 'sddefault', w: 120, h: 90 },
+    { label: 'Default (120×90)', key: 'default', w: 120, h: 90 }
+  ];
+  res.innerHTML = '&lt;div class=&quot;thumb-grid&quot;&gt;' + sizes.map(s =&gt; `
+    &lt;div class=&quot;thumb-item&quot;&gt;
+      &lt;img src=&quot;https://img.youtube.com/vi/${vid}/${s.key}.jpg&quot; loading=&quot;lazy&quot; style=&quot;width:100%;border-radius:8px;display:block&quot;/&gt;
+      &lt;div style=&quot;margin-top:6px;font-size:11px;color:var(--text-secondary)&quot;&gt;${s.label}&lt;/div&gt;
+      &lt;a href=&quot;https://img.youtube.com/vi/${vid}/${s.key}.jpg&quot; download=&quot;${s.key}.jpg&quot; target=&quot;_blank&quot; class=&quot;dl-btn&quot; style=&quot;display:block;margin-top:4px;background:var(--brand);color:white;border-radius:6px;padding:3px 8px;font-size:11px;font-weight:600;text-decoration:none;text-align:center&quot;&gt;⬇ Download&lt;/a&gt;
+    &lt;/div&gt;`).join('') + '&lt;/div&gt;';
+  showToast('Thumbnails loaded!', 'success');
+}
+
+// ─── 9. PASSWORD GENERATOR ───────────────────────────────
+function generatePassword() {
+  const len = parseInt(document.getElementById('pass-len')?.value || 16);
+  const upper = document.getElementById('inc-upper')?.checked;
+  const lower = document.getElementById('inc-lower')?.checked;
+  const num = document.getElementById('inc-num')?.checked;
+  const sym = document.getElementById('inc-sym')?.checked;
+
+  let chars = '';
+  if (upper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  if (lower) chars += 'abcdefghijklmnopqrstuvwxyz';
+  if (num) chars += '0123456789';
+  if (sym) chars += '!@#$%^&amp;*()_+-=[]{}|;:,.&lt;&gt;?';
+  if (!chars) { showToast('Select at least one character type!', 'error'); return; }
+
+  let pass = '';
+  const arr = new Uint32Array(len);
+  crypto.getRandomValues(arr);
+  arr.forEach(v =&gt; pass += chars[v % chars.length]);
+
+  document.getElementById('pass-output').value = pass;
+  updateStrength(pass);
+}
+function updateStrength(pass) {
+  let score = 0;
+  if (pass.length &gt;= 8) score++;
+  if (pass.length &gt;= 12) score++;
+  if (pass.length &gt;= 20) score++;
+  if (/[A-Z]/.test(pass)) score++;
+  if (/[a-z]/.test(pass)) score++;
+  if (/[0-9]/.test(pass)) score++;
+  if (/[^A-Za-z0-9]/.test(pass)) score++;
+
+  const bar = document.getElementById('pass-strength-bar');
+  const label = document.getElementById('pass-strength-label');
+  const levels = [
+    { pct: 14, color: '#EF4444', text: 'Very Weak' },
+    { pct: 28, color: '#F97316', text: 'Weak' },
+    { pct: 42, color: '#F59E0B', text: 'Fair' },
+    { pct: 57, color: '#EAB308', text: 'Moderate' },
+    { pct: 71, color: '#84CC16', text: 'Strong' },
+    { pct: 85, color: '#22C55E', text: 'Very Strong' },
+    { pct: 100, color: '#10B981', text: 'Excellent' }
+  ];
+  const lvl = levels[Math.min(score, 6)];
+  if (bar) { bar.style.width = lvl.pct + '%'; bar.style.background = lvl.color; }
+  if (label) { label.textContent = lvl.text; label.style.color = lvl.color; }
+}
+function copyPass() {
+  const v = document.getElementById('pass-output')?.value;
+  if (!v) return;
+  navigator.clipboard.writeText(v).then(() =&gt; showToast('Password copied!', 'success'));
+}
+
+// ═══════════════════════════════════════════════════════════
+//  UTILITIES
+// ═══════════════════════════════════════════════════════════
+function copyText(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.value).then(() =&gt; showToast('Copied to clipboard!', 'success'));
+}
+function escapeHTML(str) {
+  return str.replace(/&amp;/g,'&amp;amp;').replace(/&lt;/g,'&amp;lt;').replace(/&gt;/g,'&amp;gt;').replace(/&quot;/g,'&amp;quot;');
+}
+function setupDrop(el, cb) {
+  if (!el) return;
+  el.addEventListener('dragover', e =&gt; { e.preventDefault(); el.classList.add('dragover'); });
+  el.addEventListener('dragleave', () =&gt; el.classList.remove('dragover'));
+  el.addEventListener('drop', e =&gt; {
+    e.preventDefault(); el.classList.remove('dragover');
+    const f = e.dataTransfer.files[0];
+    if (f) cb(f);
+  });
+}
+const scriptCache = {};
+function loadScript(src, cb) {
+  if (scriptCache[src]) { cb(); return; }
+  const s = document.createElement('script');
+  s.src = src;
+  s.onload = () =&gt; { scriptCache[src] = true; cb(); };
+  document.head.appendChild(s);
+}
+function showToast(msg, type = 'info') {
+  const c = document.getElementById('toast-container');
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `&lt;i class=&quot;fa-solid ${type==='success'?'fa-check-circle':type==='error'?'fa-circle-exclamation':'fa-info-circle'} mr-2&quot; style=&quot;color:${type==='success'?'#10B981':type==='error'?'#EF4444':'#7BA4FF'}&quot;&gt;&lt;/i&gt;${msg}`;
+  c.appendChild(t);
+  setTimeout(() =&gt; t.remove(), 3100);
+}
+function toggleTheme() {
+  const html = document.documentElement;
+  const btn = document.getElementById('theme-toggle');
+  if (html.classList.contains('dark')) {
+    html.classList.remove('dark');
+    html.classList.add('light');
+    document.body.classList.remove('dark');
+    document.body.classList.add('light');
+    btn.innerHTML = '&lt;i class=&quot;fa-solid fa-sun&quot;&gt;&lt;/i&gt;';
+  } else {
+    html.classList.remove('light');
+    html.classList.add('dark');
+    document.body.classList.remove('light');
+    document.body.classList.add('dark');
+    btn.innerHTML = '&lt;i class=&quot;fa-solid fa-moon&quot;&gt;&lt;/i&gt;';
+  }
+}
+function toggleSearch() {
+  const s = document.getElementById('search-overlay');
+  s.classList.toggle('hidden');
+  if (!s.classList.contains('hidden')) document.getElementById('nav-search').focus();
+}
+function scrollToTools() {
+  document.getElementById('tools').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SCROLL REVEAL
+// ═══════════════════════════════════════════════════════════
+function initReveal() {
+  const obs = new IntersectionObserver(entries =&gt; {
+    entries.forEach(e =&gt; { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el =&gt; obs.observe(el));
+}
+
+// ═══════════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () =&gt; {
+  renderCards(TOOLS);
+  initReveal();
+});
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</p></body></html>
